@@ -4,6 +4,7 @@ from werkzeug.serving import run_simple
 from jsonrpc import JSONRPCResponseManager, dispatcher
 
 import math
+import copy
 
 
 @dispatcher.add_method
@@ -16,11 +17,13 @@ def nroot(n, x):
 
 @dispatcher.add_method
 def reverse(s):
-    pass
+    return s[::-1]
     
 @dispatcher.add_method
 def validAnagram(str1, str2):
-    return str1 == str2[::-1]
+    sortedStr1 = sorted(str1)
+    sortedStr2 = sorted(str2)
+    return sortedStr1 == sortedStr2
 
 @dispatcher.add_method
 def sort(strArr):
