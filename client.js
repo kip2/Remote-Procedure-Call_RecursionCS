@@ -1,8 +1,9 @@
-var rpc = require('jsonrpc2');
-var sys = require('sys');
+var rpc = require('json-rpc2');
 
-var client = new rpc.Client(8000, 'localhost');
+var client = rpc.Client.$create(8000, 'localhost');
+
+// Call add function on the server
 
 client.call('add', [1, 2], function(err, result) {
-    sys.puts('1 + 2 = ' + result);
+    console.log('1 + 2 = ' + result);
 });

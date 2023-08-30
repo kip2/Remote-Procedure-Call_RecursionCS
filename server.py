@@ -4,8 +4,6 @@ from werkzeug.serving import run_simple
 from jsonrpc import JSONRPCResponseManager, dispatcher
 
 import math
-import copy
-
 
 @dispatcher.add_method
 def floor(x):
