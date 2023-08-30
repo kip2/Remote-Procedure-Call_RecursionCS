@@ -1,9 +1,31 @@
-var rpc = require('json-rpc2');
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
-var client = rpc.Client.$create(8000, 'localhost');
+const http = require('http');
 
-// Call add function on the server
-
-client.call('add', [1, 2], function(err, result) {
-    console.log('1 + 2 = ' + result);
+const data = JSON.stringify({
+  "method": "floor",
+  "params": [13.5],
+  "jsonrpc": "2.0",
+  "id": 0,
 });
+
+const content = "content"
+
+const options = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    'Content-Length': '' + content.length,
+    'X-Header': 'X-Header',
+  },
+};
+const url = "http://127.0.0.1:4000/jsonrpc"
+//const url = "http://localhost:4000/jsonrpc"
+const request = http.request(url, options, response => {
+  console.log(`statusCode: ${response.statusCode}`)
+})
+console.log(request);
+request.write(data);
+request.end();
+
