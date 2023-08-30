@@ -4,6 +4,13 @@ from werkzeug.serving import run_simple
 from jsonrpc import JSONRPCResponseManager, dispatcher
 
 
+@dispatcher.add_method
+def foobar(**kwargs):
+    return kwargs["foo"] + kwargs["bar"]
+
+@dispatcher.add_method
+def hello():
+    return "hello, JSON-RPC"
 
 @Request.application
 def application(request):
