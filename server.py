@@ -3,20 +3,31 @@ from werkzeug.serving import run_simple
 
 from jsonrpc import JSONRPCResponseManager, dispatcher
 
+import math
+
 
 @dispatcher.add_method
-def foobar(**kwargs):
-    return kwargs["foo"] + kwargs["bar"]
+def floor(x):
+    return int(math.floor(x))
 
 @dispatcher.add_method
-def hello():
-    return "hello, JSON-RPC"
+def nroot(n, x):
+    return int(x ** (1/n))
+
+@dispatcher.add_method
+def reverse(s):
+    pass
+    
+@dispatcher.add_method
+def validAnagram(str1, str2):
+    return str1 == str2[::-1]
+
+@dispatcher.add_method
+def sort(strArr):
+    return sorted(strArr)
 
 @Request.application
 def application(request):
-    # Dispatcher is dictionary {<method_name>: callable}
-    dispatcher["echo"] = lambda s: s
-    dispatcher["add"] = lambda a, b: a + b
 
     response = JSONRPCResponseManager.handle(
         request.data, dispatcher)
